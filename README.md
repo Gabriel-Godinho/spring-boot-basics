@@ -13,11 +13,6 @@ Certifique-se de ter o seguinte instalado antes de executar os exemplos:
 - Java Development Kit (JDK)
 - Maven (opcional, dependendo do exemplo)
 
-## Como Executar os Exemplos
-
-1. Navegue até o diretório do exemplo desejado.
-2. Siga as instruções específicas do README dentro desse diretório para executar o aplicativo.
-
 ## Licença
 
 Este projeto é licenciado sob a [MIT License](LICENSE).
