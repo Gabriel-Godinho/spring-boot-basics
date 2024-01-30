@@ -13,7 +13,6 @@ public class ParkingSpotService {
     @Autowired
     ParkingSpotRepository parkingSpotRepository;
 
-    // Caso alguma dê errado durante operações de inserção ou remoção, o @Transactional garante o rollback e retorna tudo ao normal
     @Transactional
     public ParkingSpotModel save(ParkingSpotModel parkingSpotModel) {
         return parkingSpotRepository.save(parkingSpotModel);
