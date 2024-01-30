@@ -31,4 +31,5 @@ public class ParkingSpotController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
+
 }
