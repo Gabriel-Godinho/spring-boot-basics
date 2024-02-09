@@ -19,15 +19,15 @@ public class ParkingSpotService {
     }
 
     public boolean existsByLicensePlateCar(String licensePlateCar) {
-        return false;
+        return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
     }
 
     public boolean existsByParkingSpotNumber(String spotNumber) {
-        return false;
+        return parkingSpotRepository.existsByParkingSpotNumber(spotNumber);
     }
 
     public boolean existsByApartmentAndBlock(String apartment, String block) {
-        return false;
+        return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
     }
 
 }
