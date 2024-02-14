@@ -15,13 +15,13 @@ public class ParkingSpotDTO {
     private String licensePlateCar;
 
     @NotBlank
-    private String brandCar;
+    private String carBrand;
 
     @NotBlank
-    private String modelCar;
+    private String carModel;
 
     @NotBlank
-    private String colorCar;
+    private String carColor;
 
     @NotBlank
     private String responsibleName;

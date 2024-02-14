@@ -18,13 +18,11 @@ import java.time.ZoneId;
 @RequestMapping("/parking-spot")
 public class ParkingSpotController {
 
-    // Ponto de injeção
     @Autowired
     ParkingSpotService parkingSpotService;
 
-    @PostMapping
+    @PostMapping("/save-parking-spot")
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDTO parkingSpotDto) {
-        // Verificações
         if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
         }

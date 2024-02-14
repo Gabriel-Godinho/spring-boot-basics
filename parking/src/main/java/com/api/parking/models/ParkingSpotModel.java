@@ -19,11 +19,11 @@ public class ParkingSpotModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /*
-     * UUID é um identificador universalmente exclusivo utilizado para identificação de qualquer coisa no mundo da computação.
-     * O UUID é um número de 128 bits representado por 32 dígitos hexadecimais, exibidos em cinco grupos separados por hifens,
-     * na forma textual8-4-4-4-12 sendo um total de 36 caracteres (32 caracteres alfanuméricos e 4 hifens).
+     * UUID is a universally unique identifier used for identification of anything in the computing world.
+     * The UUID is a 128-bit number represented by 32 hexadecimal digits, displayed in five groups separated by hyphens,
+     * in textual form 8-4-4-4-12 totaling 36 characters (32 alphanumeric characters and 4 hyphens).
      *
-     * Exemplo: 3d0ca315-aff9–4fc2-be61–3b76b9a2d798
+     * Example: 3d0ca315-aff9-4fc2-be61-3b76b9a2d798
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
