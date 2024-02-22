@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,6 +23,18 @@ public class ParkingSpotController {
 
     @Autowired
     ParkingSpotService parkingSpotService;
+
+    @GetMapping("/get-all")
+    public ResponseEntity<List<ParkingSpotModel>> getAllParkingSpots() {
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
+    }
+
+    @GetMapping("/get-by-id/{id}")
+    public ResponseEntity<Object> getParkingSpotById(@PathVariable(value = "id") UUID id) {
+        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
+
+        return parkingSpotModelOptional.<ResponseEntity<Object>>map(parkingSpotModel -> ResponseEntity.status(HttpStatus.OK).body(parkingSpotModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found!"));
+    }
 
     @PostMapping("/save-parking-spot")
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDTO parkingSpotDto) {
@@ -36,11 +51,44 @@ public class ParkingSpotController {
         }
 
         ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel); // Conversão de objetos
+        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
 
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
+    }
+
+    @PutMapping("/update-parking-spot/{id}")
+    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id, @RequestBody @Valid ParkingSpotDTO parkingSpotDTO) {
+        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
+
+        if (parkingSpotModelOptional.isPresent()) {
+            ParkingSpotModel parkingSpotModel = parkingSpotModelOptional.get();
+            parkingSpotModel.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
+            parkingSpotModel.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
+            parkingSpotModel.setCarModel(parkingSpotDTO.getCarModel());
+            parkingSpotModel.setCarBrand(parkingSpotDTO.getCarBrand());
+            parkingSpotModel.setCarColor(parkingSpotDTO.getCarColor());
+            parkingSpotModel.setResponsibleName(parkingSpotDTO.getResponsibleName());
+            parkingSpotModel.setApartment(parkingSpotDTO.getApartment());
+            parkingSpotModel.setBlock(parkingSpotDTO.getBlock());
+
+            return ResponseEntity.status(HttpStatus.OK).body("Parking spot updated successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found to be updated!");
+    }
+
+    @DeleteMapping("/delete-parking-spot/{id}")
+    public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") UUID id) {
+        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
+
+        if (parkingSpotModelOptional.isPresent()) {
+            parkingSpotService.delete(parkingSpotModelOptional.get());
+            return ResponseEntity.status(HttpStatus.OK).body("Parking spot deleted successfully!");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found to be deleted!");
     }
 
 }
