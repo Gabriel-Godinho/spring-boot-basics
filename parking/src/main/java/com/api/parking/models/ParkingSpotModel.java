@@ -1,9 +1,7 @@
 package com.api.parking.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,8 +10,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "PARKING_SPOTS")
-@Getter @NoArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @ToString
 public class ParkingSpotModel implements Serializable {
+    
+    // TODO - normalize creating other tables for models, brands and, maybe, colors.
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,33 +28,34 @@ public class ParkingSpotModel implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ToString.Exclude
     private UUID id;
 
     @Column(nullable = false, unique = true, length = 10)
-    @Setter private String parkingSpotNumber;
+    private String parkingSpotNumber;
 
     @Column(nullable = false, unique = true, length = 7)
-    @Setter private String licensePlateCar;
+    private String licensePlateCar;
 
     @Column(nullable = false, length = 70)
-    @Setter private String carBrand;
+    private String carBrand;
 
     @Column(nullable = false, length = 70)
-    @Setter private String carModel;
+    private String carModel;
 
     @Column(nullable = false, length = 70)
-    @Setter private String carColor;
+    private String carColor;
 
     @Column(nullable = false)
-    @Setter private LocalDateTime registrationDate;
+    private LocalDateTime registrationDate;
 
     @Column(nullable = false, length = 130)
-    @Setter private String responsibleName;
+    private String responsibleName;
 
     @Column(nullable = false, length = 30)
-    @Setter private String apartment;
+    private String apartment;
 
     @Column(nullable = false, length = 30)
-    @Setter private String block;
+    private String block;
 
 }
