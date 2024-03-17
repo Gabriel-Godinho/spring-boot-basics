@@ -1,7 +1,6 @@
 package com.api.parking.controllers;
 
 import com.api.parking.dtos.ParkingSpotDTO;
-import com.api.parking.models.CarBrandModel;
 import com.api.parking.models.ParkingSpotModel;
 import com.api.parking.services.CarBrandService;
 import com.api.parking.services.ParkingSpotService;
