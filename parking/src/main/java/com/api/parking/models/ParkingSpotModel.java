@@ -9,12 +9,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "PARKING_SPOTS")
+@Table(name = "parking_spots")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @ToString
 public class ParkingSpotModel implements Serializable {
-    
-    // TODO - normalize creating other tables for models, brands and, maybe, colors.
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,8 +35,9 @@ public class ParkingSpotModel implements Serializable {
     @Column(nullable = false, unique = true, length = 7)
     private String licensePlateCar;
 
-    @Column(nullable = false, length = 70)
-    private String carBrand;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_brand", referencedColumnName = "brand_id")
+    private CarBrandModel carBrand;
 
     @Column(nullable = false, length = 70)
     private String carModel;
