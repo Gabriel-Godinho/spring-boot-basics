@@ -1,6 +1,7 @@
 package com.api.parking.controllers;
 
 import com.api.parking.dtos.ParkingSpotDTO;
+import com.api.parking.models.CarBrandModel;
 import com.api.parking.models.ParkingSpotModel;
 import com.api.parking.services.CarBrandService;
 import com.api.parking.services.ParkingSpotService;
@@ -62,8 +63,6 @@ public class ParkingSpotController {
 
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
 
-        carBrandService.save(parkingSpotModel.getCarBrandId());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
 
@@ -82,7 +81,7 @@ public class ParkingSpotController {
             parkingSpotModel.setApartment(parkingSpotDTO.getApartment());
             parkingSpotModel.setBlock(parkingSpotDTO.getBlock());
 
-            return ResponseEntity.status(HttpStatus.OK).body("Parking spot updated successfully");
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found to be updated!");
