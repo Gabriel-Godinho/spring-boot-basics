@@ -23,7 +23,4 @@ public class CarBrandModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String brandName;
 
-    @OneToOne(mappedBy = "car_brands")
-    private ParkingSpotModel parkingSpotModel;
-
 }

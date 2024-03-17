@@ -2,6 +2,7 @@ package com.api.parking.controllers;
 
 import com.api.parking.dtos.ParkingSpotDTO;
 import com.api.parking.models.ParkingSpotModel;
+import com.api.parking.services.CarBrandService;
 import com.api.parking.services.ParkingSpotService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +27,9 @@ public class ParkingSpotController {
 
     @Autowired
     ParkingSpotService parkingSpotService;
+
+    @Autowired
+    CarBrandService carBrandService;
 
     @GetMapping("/get-all")
     public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(size = 1, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -59,6 +62,8 @@ public class ParkingSpotController {
 
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
 
+        carBrandService.save(parkingSpotModel.getCarBrandId());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
 
@@ -71,7 +76,7 @@ public class ParkingSpotController {
             parkingSpotModel.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
             parkingSpotModel.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
             parkingSpotModel.setCarModel(parkingSpotDTO.getCarModel());
-            parkingSpotModel.setCarBrand(parkingSpotDTO.getCarBrand());
+            parkingSpotModel.setCarBrandId(parkingSpotDTO.getCarBrandId());
             parkingSpotModel.setCarColor(parkingSpotDTO.getCarColor());
             parkingSpotModel.setResponsibleName(parkingSpotDTO.getResponsibleName());
             parkingSpotModel.setApartment(parkingSpotDTO.getApartment());

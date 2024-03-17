@@ -36,8 +36,8 @@ public class ParkingSpotModel implements Serializable {
     private String licensePlateCar;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_brand", referencedColumnName = "brand_id")
-    private CarBrandModel carBrand;
+    @JoinColumn(name = "car_brand_id", nullable = false)
+    private CarBrandModel carBrandId;
 
     @Column(nullable = false, length = 70)
     private String carModel;

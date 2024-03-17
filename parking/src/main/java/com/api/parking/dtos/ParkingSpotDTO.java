@@ -1,6 +1,8 @@
 package com.api.parking.dtos;
 
+import com.api.parking.models.CarBrandModel;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -14,8 +16,8 @@ public class ParkingSpotDTO {
     @Size(max = 7)
     private String licensePlateCar;
 
-    @NotBlank
-    private String carBrand;
+    @NotNull
+    private CarBrandModel carBrandId;
 
     @NotBlank
     private String carModel;
