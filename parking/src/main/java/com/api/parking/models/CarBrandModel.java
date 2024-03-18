@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "car_brands")
@@ -22,5 +24,8 @@ public class CarBrandModel implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String brandName;
+
+    @OneToMany(mappedBy = "carBrandId")
+    private Set<ParkingSpotModel> carBrandModels = new HashSet<>();
 
 }
