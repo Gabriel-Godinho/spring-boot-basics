@@ -35,7 +35,7 @@ public class ParkingSpotModel implements Serializable {
     @Column(nullable = false, unique = true, length = 7)
     private String licensePlateCar;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_brand_id", referencedColumnName = "brandId")
     private CarBrandModel carBrandId;
 

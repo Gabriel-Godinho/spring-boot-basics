@@ -18,14 +18,14 @@ public class CarBrandModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ToString.Exclude
     private Long brandId;
 
     @Column(nullable = false, unique = true)
     private String brandName;
 
-    @OneToMany(mappedBy = "carBrandId")
+    @OneToMany(mappedBy = "carBrandId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParkingSpotModel> carBrandModels = new HashSet<>();
 
 }
