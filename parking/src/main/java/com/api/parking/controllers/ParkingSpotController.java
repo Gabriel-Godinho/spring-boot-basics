@@ -2,7 +2,6 @@ package com.api.parking.controllers;
 
 import com.api.parking.dtos.ParkingSpotDTO;
 import com.api.parking.models.ParkingSpotModel;
-import com.api.parking.services.CarBrandService;
 import com.api.parking.services.ParkingSpotService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -27,9 +26,6 @@ public class ParkingSpotController {
 
     @Autowired
     ParkingSpotService parkingSpotService;
-
-    @Autowired
-    CarBrandService carBrandService;
 
     @GetMapping("/get-all")
     public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
