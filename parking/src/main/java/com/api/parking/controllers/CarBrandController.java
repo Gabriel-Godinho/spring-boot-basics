@@ -28,4 +28,9 @@ public class CarBrandController {
     @Autowired
     CarBrandService carBrandService;
 
+    @PostMapping("save-car-brand")
+    public ResponseEntity<Object> save() {
+        return new ResponseEntity<>();
+    }
+
 }
