@@ -17,7 +17,7 @@ public class ParkingSpotDTO {
     private String licensePlateCar;
 
     @NotNull
-    private CarBrandModel carBrandId;
+    private Long carBrandId;
 
     @NotBlank
     private String carModel;
