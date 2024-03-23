@@ -70,7 +70,6 @@ public class ParkingSpotController {
             parkingSpotModel.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
             parkingSpotModel.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
             parkingSpotModel.setCarModel(parkingSpotDTO.getCarModel());
-            parkingSpotModel.setCarBrandId(parkingSpotDTO.getCarBrandId());
             parkingSpotModel.setCarColor(parkingSpotDTO.getCarColor());
             parkingSpotModel.setResponsibleName(parkingSpotDTO.getResponsibleName());
             parkingSpotModel.setApartment(parkingSpotDTO.getApartment());
