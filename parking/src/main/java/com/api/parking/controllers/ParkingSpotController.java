@@ -53,32 +53,12 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
         }
 
-        ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
-
-        parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotDto));
     }
 
     @PutMapping("/update-parking-spot/{id}")
     public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id, @RequestBody @Valid ParkingSpotDTO parkingSpotDTO) {
-        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-
-        if (parkingSpotModelOptional.isPresent()) {
-            ParkingSpotModel parkingSpotModel = parkingSpotModelOptional.get();
-            parkingSpotModel.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
-            parkingSpotModel.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
-            parkingSpotModel.setCarModel(parkingSpotDTO.getCarModel());
-            parkingSpotModel.setCarColor(parkingSpotDTO.getCarColor());
-            parkingSpotModel.setResponsibleName(parkingSpotDTO.getResponsibleName());
-            parkingSpotModel.setApartment(parkingSpotDTO.getApartment());
-            parkingSpotModel.setBlock(parkingSpotDTO.getBlock());
-
-            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found to be updated!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(parkingSpotService.update(id, parkingSpotDTO));
     }
 
     @DeleteMapping("/delete-parking-spot/{id}")
