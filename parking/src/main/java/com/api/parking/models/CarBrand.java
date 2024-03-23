@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "car_brands")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @ToString
-public class CarBrandModel implements Serializable {
+public class CarBrand implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -26,6 +26,6 @@ public class CarBrandModel implements Serializable {
     private String brandName;
 
     @OneToMany(mappedBy = "carBrandId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ParkingSpotModel> carBrandModels = new HashSet<>();
+    private Set<ParkingSpot> carBrandModels = new HashSet<>();
 
 }

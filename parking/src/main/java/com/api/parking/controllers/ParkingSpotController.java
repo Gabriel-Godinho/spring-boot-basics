@@ -1,10 +1,9 @@
 package com.api.parking.controllers;
 
 import com.api.parking.dtos.ParkingSpotDTO;
-import com.api.parking.models.ParkingSpotModel;
+import com.api.parking.models.ParkingSpot;
 import com.api.parking.services.ParkingSpotService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,15 +25,15 @@ public class ParkingSpotController {
     ParkingSpotService parkingSpotService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<ParkingSpot>> getAllParkingSpots(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
     }
 
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<Object> getParkingSpotById(@PathVariable(value = "id") UUID id) {
-        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
+        Optional<ParkingSpot> parkingSpotModelOptional = parkingSpotService.findById(id);
 
-        return parkingSpotModelOptional.<ResponseEntity<Object>>map(parkingSpotModel -> ResponseEntity.status(HttpStatus.OK).body(parkingSpotModel)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found!"));
+        return parkingSpotModelOptional.<ResponseEntity<Object>>map(parkingSpot -> ResponseEntity.status(HttpStatus.OK).body(parkingSpot)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found!"));
     }
 
     @PostMapping("/save-parking-spot")
@@ -63,7 +60,7 @@ public class ParkingSpotController {
 
     @DeleteMapping("/delete-parking-spot/{id}")
     public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") UUID id) {
-        Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
+        Optional<ParkingSpot> parkingSpotModelOptional = parkingSpotService.findById(id);
 
         if (parkingSpotModelOptional.isPresent()) {
             parkingSpotService.delete(parkingSpotModelOptional.get());

@@ -1,8 +1,8 @@
 package com.api.parking.services;
 
 import com.api.parking.dtos.ParkingSpotDTO;
-import com.api.parking.models.CarBrandModel;
-import com.api.parking.models.ParkingSpotModel;
+import com.api.parking.models.CarBrand;
+import com.api.parking.models.ParkingSpot;
 import com.api.parking.repositories.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -26,32 +26,32 @@ public class ParkingSpotService {
     CarBrandService carBrandService;
 
     @Transactional
-    public ParkingSpotModel save(ParkingSpotDTO parkingSpotDto) {
-        ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
+    public ParkingSpot save(ParkingSpotDTO parkingSpotDto) {
+        ParkingSpot parkingSpot = new ParkingSpot();
+        BeanUtils.copyProperties(parkingSpotDto, parkingSpot);
 
-        parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
+        parkingSpot.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
 
-        return parkingSpotRepository.save(parkingSpotModel);
+        return parkingSpotRepository.save(parkingSpot);
     }
 
-    public ParkingSpotModel update(UUID id, ParkingSpotDTO parkingSpotDTO) {
-        Optional<ParkingSpotModel> parkingSpotModelOptional = findById(id);
+    public ParkingSpot update(UUID id, ParkingSpotDTO parkingSpotDTO) {
+        Optional<ParkingSpot> parkingSpotOptional = findById(id);
 
-        if (parkingSpotModelOptional.isPresent()) {
-            ParkingSpotModel parkingSpotModel = parkingSpotModelOptional.get();
-            parkingSpotModel.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
-            parkingSpotModel.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
-            parkingSpotModel.setCarModel(parkingSpotDTO.getCarModel());
-            parkingSpotModel.setCarColor(parkingSpotDTO.getCarColor());
-            parkingSpotModel.setResponsibleName(parkingSpotDTO.getResponsibleName());
-            parkingSpotModel.setApartment(parkingSpotDTO.getApartment());
-            parkingSpotModel.setBlock(parkingSpotDTO.getBlock());
+        if (parkingSpotOptional.isPresent()) {
+            ParkingSpot parkingSpot = parkingSpotOptional.get();
+            parkingSpot.setParkingSpotNumber(parkingSpotDTO.getParkingSpotNumber());
+            parkingSpot.setLicensePlateCar(parkingSpotDTO.getLicensePlateCar());
+            parkingSpot.setCarModel(parkingSpotDTO.getCarModel());
+            parkingSpot.setCarColor(parkingSpotDTO.getCarColor());
+            parkingSpot.setResponsibleName(parkingSpotDTO.getResponsibleName());
+            parkingSpot.setApartment(parkingSpotDTO.getApartment());
+            parkingSpot.setBlock(parkingSpotDTO.getBlock());
 
-            Optional<CarBrandModel> carBrandModelOptional = carBrandService.findById(parkingSpotDTO.getCarBrandId());
-            carBrandModelOptional.ifPresent(parkingSpotModel::setCarBrandId);
+            Optional<CarBrand> carBrandOptional = carBrandService.findById(parkingSpotDTO.getCarBrandId());
+            carBrandOptional.ifPresent(parkingSpot::setCarBrandId);
 
-            return parkingSpotRepository.save(parkingSpotModel);
+            return parkingSpotRepository.save(parkingSpot);
         }
 
         return null;
@@ -69,16 +69,16 @@ public class ParkingSpotService {
         return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
     }
 
-    public Page<ParkingSpotModel> findAll(Pageable pageable) {
+    public Page<ParkingSpot> findAll(Pageable pageable) {
         return parkingSpotRepository.findAll(pageable);
     }
 
-    public Optional<ParkingSpotModel> findById(UUID id) {
+    public Optional<ParkingSpot> findById(UUID id) {
         return parkingSpotRepository.findById(id);
     }
 
-    public void delete(ParkingSpotModel parkingSpotModel) {
-        parkingSpotRepository.delete(parkingSpotModel);
+    public void delete(ParkingSpot parkingSpot) {
+        parkingSpotRepository.delete(parkingSpot);
     }
 
 }

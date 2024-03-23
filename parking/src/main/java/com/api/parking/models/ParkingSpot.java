@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "parking_spots")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @ToString
-public class ParkingSpotModel implements Serializable {
+public class ParkingSpot implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class ParkingSpotModel implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_brand_id", referencedColumnName = "brandId")
-    private CarBrandModel carBrandId;
+    private CarBrand carBrandId;
 
     @Column(nullable = false, length = 70)
     private String carModel;

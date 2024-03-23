@@ -1,7 +1,7 @@
 package com.api.parking.services;
 
 import com.api.parking.dtos.CarBrandDTO;
-import com.api.parking.models.CarBrandModel;
+import com.api.parking.models.CarBrand;
 import com.api.parking.repositories.CarBrandRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -17,14 +17,14 @@ public class CarBrandService {
     CarBrandRepository carBrandRepository;
 
     @Transactional
-    public CarBrandModel save(CarBrandDTO carBrandDTO) {
-        CarBrandModel carBrandModel = new CarBrandModel();
-        BeanUtils.copyProperties(carBrandDTO, carBrandModel);
+    public CarBrand save(CarBrandDTO carBrandDTO) {
+        CarBrand carBrand = new CarBrand();
+        BeanUtils.copyProperties(carBrandDTO, carBrand);
 
-        return carBrandRepository.save(carBrandModel);
+        return carBrandRepository.save(carBrand);
     }
 
-    public Optional<CarBrandModel> findById(Long id) {
+    public Optional<CarBrand> findById(Long id) {
         return carBrandRepository.findById(id);
     }
 

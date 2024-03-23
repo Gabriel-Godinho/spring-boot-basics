@@ -1,6 +1,5 @@
 package com.api.parking.dtos;
 
-import com.api.parking.models.CarBrandModel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
