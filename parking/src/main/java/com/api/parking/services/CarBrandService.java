@@ -26,6 +26,7 @@ public class CarBrandService {
         return carBrandRepository.save(carBrand);
     }
 
+    @Transactional
     public void delete(CarBrand carBrand) {
         carBrandRepository.delete(carBrand);
     }
