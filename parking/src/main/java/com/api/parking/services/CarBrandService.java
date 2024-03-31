@@ -28,4 +28,8 @@ public class CarBrandService {
         return carBrandRepository.findById(id);
     }
 
+    public boolean existsByBrandName() {
+        return carBrandRepository.existsByBrandName();
+    }
+
 }

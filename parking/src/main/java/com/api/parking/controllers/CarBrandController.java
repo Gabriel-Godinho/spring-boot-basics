@@ -18,6 +18,11 @@ public class CarBrandController {
 
     @PostMapping("/save-car-brand")
     public ResponseEntity<Object> save(@Valid @RequestBody CarBrandDTO carBrandDTO) {
+        if (carBrandService.existsByBrandName()) {
+            String conflictMessage = "Bad request: Brand already saved!";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(conflictMessage);
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(carBrandService.save(carBrandDTO));
     }
 
