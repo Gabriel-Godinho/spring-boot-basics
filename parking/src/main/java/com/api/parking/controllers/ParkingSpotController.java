@@ -39,15 +39,18 @@ public class ParkingSpotController {
     @PostMapping("/save-parking-spot")
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDTO parkingSpotDto) {
         if (parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
+            String conflictExistsByLicensePlateCar = "Conflict: License Plate Car is already in use!";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(conflictExistsByLicensePlateCar);
         }
 
         if (parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
+            String conflictExistsByParkingSpotNumberMessage = "Conflict: Parking Spot is already in use!";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(conflictExistsByParkingSpotNumberMessage);
         }
 
         if (parkingSpotService.existsByApartmentAndBlock(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
+            String conflictExistsByApartmentAndBlockMessage = "Conflict: Parking Spot already registered for this apartment/block!";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(conflictExistsByApartmentAndBlockMessage);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotDto));
@@ -64,10 +67,13 @@ public class ParkingSpotController {
 
         if (parkingSpotModelOptional.isPresent()) {
             parkingSpotService.delete(parkingSpotModelOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body("Parking spot deleted successfully!");
+
+            String successMessage = "Parking spot deleted successfully!";
+            return ResponseEntity.status(HttpStatus.OK).body(successMessage);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found to be deleted!");
+        String notFoundMessage = "Parking spot not found to be deleted!";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundMessage);
     }
 
 }
