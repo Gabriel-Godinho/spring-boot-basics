@@ -1,6 +1,7 @@
 package com.api.parking.controllers;
 
 import com.api.parking.dtos.CarBrandDTO;
+import com.api.parking.models.CarBrand;
 import com.api.parking.services.CarBrandService;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
@@ -11,6 +12,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,6 +36,21 @@ public class CarBrandController {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(carBrandService.save(carBrandDTO));
+    }
+
+    @DeleteMapping("delete-car-brand/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") long id) {
+        Optional<CarBrand> carBrand = carBrandService.findById(id);
+
+        if (carBrand.isPresent()) {
+            carBrandService.delete(carBrand.get());
+
+            String successMessage = "Car brand delete successfully!";
+            return ResponseEntity.ok(successMessage);
+        }
+
+        String notFoundMessage = "Car brand not found to be deleted!";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundMessage);
     }
 
 }

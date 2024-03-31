@@ -26,6 +26,10 @@ public class CarBrandService {
         return carBrandRepository.save(carBrand);
     }
 
+    public void delete(CarBrand carBrand) {
+        carBrandRepository.delete(carBrand);
+    }
+
     public Optional<CarBrand> findById(Long id) {
         return carBrandRepository.findById(id);
     }
