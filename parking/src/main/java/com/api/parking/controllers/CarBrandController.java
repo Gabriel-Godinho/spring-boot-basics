@@ -4,7 +4,6 @@ import com.api.parking.dtos.CarBrandDTO;
 import com.api.parking.models.CarBrand;
 import com.api.parking.services.CarBrandService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
