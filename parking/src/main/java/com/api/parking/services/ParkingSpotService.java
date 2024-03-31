@@ -35,6 +35,7 @@ public class ParkingSpotService {
         return parkingSpotRepository.save(parkingSpot);
     }
 
+    @Transactional
     public ParkingSpot update(UUID id, ParkingSpotDTO parkingSpotDTO) {
         Optional<ParkingSpot> parkingSpotOptional = findById(id);
 
@@ -57,6 +58,19 @@ public class ParkingSpotService {
         return null;
     }
 
+    @Transactional
+    public void delete(ParkingSpot parkingSpot) {
+        parkingSpotRepository.delete(parkingSpot);
+    }
+
+    public Optional<ParkingSpot> findById(UUID id) {
+        return parkingSpotRepository.findById(id);
+    }
+
+    public Page<ParkingSpot> findAll(Pageable pageable) {
+        return parkingSpotRepository.findAll(pageable);
+    }
+
     public boolean existsByLicensePlateCar(String licensePlateCar) {
         return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
     }
@@ -67,18 +81,6 @@ public class ParkingSpotService {
 
     public boolean existsByApartmentAndBlock(String apartment, String block) {
         return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
-    }
-
-    public Page<ParkingSpot> findAll(Pageable pageable) {
-        return parkingSpotRepository.findAll(pageable);
-    }
-
-    public Optional<ParkingSpot> findById(UUID id) {
-        return parkingSpotRepository.findById(id);
-    }
-
-    public void delete(ParkingSpot parkingSpot) {
-        parkingSpotRepository.delete(parkingSpot);
     }
 
 }
