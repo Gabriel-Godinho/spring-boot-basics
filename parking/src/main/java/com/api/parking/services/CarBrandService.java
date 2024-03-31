@@ -6,6 +6,8 @@ import com.api.parking.repositories.CarBrandRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,6 +28,10 @@ public class CarBrandService {
 
     public Optional<CarBrand> findById(Long id) {
         return carBrandRepository.findById(id);
+    }
+
+    public Page<CarBrand> findAll(Pageable pageable) {
+        return carBrandRepository.findAll(pageable);
     }
 
     public boolean existsByBrandName() {

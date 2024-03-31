@@ -3,7 +3,11 @@ package com.api.parking.controllers;
 import com.api.parking.dtos.CarBrandDTO;
 import com.api.parking.services.CarBrandService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +19,11 @@ public class CarBrandController {
 
     @Autowired
     CarBrandService carBrandService;
+
+    @GetMapping("get-all")
+    public ResponseEntity<Object> getAllCarBrands(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(carBrandService.findAll(pageable));
+    }
 
     @PostMapping("/save-car-brand")
     public ResponseEntity<Object> save(@Valid @RequestBody CarBrandDTO carBrandDTO) {
