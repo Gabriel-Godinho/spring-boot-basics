@@ -27,6 +27,18 @@ public class CarBrandController {
         return ResponseEntity.status(HttpStatus.OK).body(carBrandService.findAll(pageable));
     }
 
+    @GetMapping("/get-by-id/{id}")
+    public ResponseEntity<Object> getCarBrandById(@PathVariable("id") long id) {
+        Optional<CarBrand> carBrand = carBrandService.findById(id);
+
+        if (carBrand.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(carBrand.get());
+        }
+
+        String notFoundMessage = "Error: car brand not found!"; 
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundMessage);
+    }
+
     @PostMapping("/save-car-brand")
     public ResponseEntity<Object> save(@Valid @RequestBody CarBrandDTO carBrandDTO) {
         if (carBrandService.existsByBrandName()) {
